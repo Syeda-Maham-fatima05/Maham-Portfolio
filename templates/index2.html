@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>2048 Game</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<h1>2048 Game</h1>
+
+<h2>Score: <span id="score">0</span></h2>
+
+<div id="board"></div>
+
+<button id="newGameBtn">New Game</button>
+
+
+<!-- Game Over Popup -->
+
+<div id="gameOverBox">
+
+<div id="gameOverContent">
+
+<h2>Game Over!</h2>
+
+<p>Your Score: <span id="finalScore"></span></p>
+
+<button id="restartBtn">Play Again</button>
+
+</div>
+
+</div>
+
+
+<!-- Win Popup -->
+
+<div id="winBox">
+
+<div id="winContent">
+
+<h2>You Won! 🎉</h2>
+
+<p>You reached 2048!</p>
+
+<button id="continueBtn">Continue</button>
+
+<button id="restartWinBtn">New Game</button>
+
+</div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

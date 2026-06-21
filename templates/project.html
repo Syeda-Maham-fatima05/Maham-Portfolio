@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Projects | Maham</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(-45deg, #0D1B2A, #1B263B, #0A192F, #16213E);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: rgba(0, 0, 0, 0.7) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 12px 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: white !important;
+            transition: 0.3s;
+        }
+
+        .navbar-brand:hover {
+            color: #00f2fe !important;
+        }
+
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-size: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+            color: #00f2fe !important;
+        }
+
+        .navbar .btn-outline-info {
+            border-color: #00f2fe !important;
+            color: white !important;
+            transition: 0.3s;
+        }
+
+        .navbar .btn-outline-info:hover {
+            background: linear-gradient(90deg, #00f2fe, #4facfe) !important;
+            border-color: transparent !important;
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        /* HERO */
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7),
+                rgba(0, 0, 0, 0.7)),
+            url("{{ url_for('static', filename='hero.png') }}");
+
+            background-size: cover;
+            background-position: center;
+
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(white 1px, transparent 1px);
+            background-size: 45px 45px;
+            opacity: 0.05;
+            animation: sparkle 20s linear infinite;
+        }
+
+        @keyframes sparkle {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-200px, -200px);
+            }
+        }
+
+        .hero h1 {
+            position: relative;
+            z-index: 2;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            position: relative;
+            z-index: 2;
+            color: #d0d0d0;
+        }
+
+        .projects-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            width: 95%;
+            margin: auto;
+            align-items: stretch;
+        }
+
+        /* GLASS SECTION */
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+            padding: 30px;
+            transition: 0.3s;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        .section-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 198, 255, 0.2);
+            border-color: rgba(0, 198, 255, 0.4);
+        }
+
+        .section-box::-webkit-scrollbar {
+            width: 6px;
+            height: 8px;
+        }
+
+        .section-box::-webkit-scrollbar-thumb {
+            background: #00c6ff;
+            border-radius: 10px;
+        }
+
+        .section-scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 10px 20px 20px 20px;
+        }
+
+        .section-scroll::before,
+        .section-scroll::after {
+            content: '';
+            margin: auto;
+        }
+
+        .section-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .section-scroll::-webkit-scrollbar-thumb {
+            background: #00c6ff;
+            border-radius: 10px;
+        }
+
+        /* HEADINGS */
+
+        h2 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* CARDS */
+
+        .card {
+            background: #0F1E3D;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.3s;
+
+            width: 280px;
+            margin: auto;
+        }
+
+        .hardware-section .card {
+            width: 280px;
+            margin: auto;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .card img {
+            height: 150px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ALL card images (software + hardware) */
+        .card img {
+            width: 100%;
+            height: 120px;
+            /* adjust this */
+            object-fit: cover;
+            /* prevents stretching */
+        }
+
+        /* Graphic design images */
+        .project-nav-box img {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card h5 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: #d8d8d8;
+        }
+
+        /* BUTTONS */
+
+        .btn-custom {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            border: none;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+        }
+
+        /* GRAPHIC DESIGN CARDS */
+
+        .graphic-card {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.5));
+            border-radius: 50px;
+            padding: 10px 15px 10px 30px;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin: auto;
+            width: fit-content;
+        }
+
+        .graphic-card:hover {
+            transform: scale(1.05);
+            border-color: #00c6ff;
+            box-shadow: 0 10px 25px rgba(0, 198, 255, 0.3);
+        }
+
+        .graphic-card h3 {
+            margin: 0;
+            padding-right: 25px;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .graphic-img-box {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #00c6ff;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+        }
+
+        .graphic-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+
+        .graphic-card:hover .graphic-img-box img {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        /* SUBSECTION */
+
+        .sub-title {
+            margin-top: 35px;
+            margin-bottom: 20px;
+            color: #00c6ff;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:992px) {
+            .projects-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+            }
+            .hero h1 {
+                font-size: 2.2rem !important;
+            }
+            .hero .btn-custom {
+                margin: 5px !important;
+                font-size: 0.95rem !important;
+                padding: 8px 16px !important;
+            }
+            .section-box {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            .graphic-card {
+                padding: 10px 15px;
+                border-radius: 30px;
+            }
+            .graphic-card h3 {
+                font-size: 16px;
+                padding-right: 15px;
+            }
+            .graphic-img-box {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">MAHAM</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link{{ ' active' if request.path == '/' or request.path == url_for('home') }}" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{{ ' active' if request.path == '/about' or request.path == url_for('about') }}" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{{ ' active' if request.path in ['/project', '/pictures', '/videos', url_for('projects'), url_for('pictures'), url_for('videos')] }}" href="{{ url_for('projects') }}">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-info rounded-pill px-3 ms-lg-3 text-white{{ ' active' if request.path == '/contact' or request.path == url_for('contact') }}" href="{{ url_for('contact') }}">Contact Me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1 class="display-3">
+            MY PROJECTS
+        </h1>
+
+        <p class="lead">
+            Software • Hardware • Graphic Designing
+        </p>
+
+        <div class="mt-4">
+            <a href="#software" class="btn btn-custom mx-2 px-4 py-2 fs-5">Software</a>
+            <a href="#hardware" class="btn btn-custom mx-2 px-4 py-2 fs-5">Hardware</a>
+            <a href="#graphics" class="btn btn-custom mx-2 px-4 py-2 fs-5">Graphic Designing</a>
+        </div>
+
+    </section>
+
+    <!-- MAIN -->
+
+    <div class="container-fluid py-5 px-4">
+
+        <div class="projects-layout">
+
+            <!-- SOFTWARE -->
+
+            <div id="software" class="section-box software-section">
+
+                <h2>
+                    💻 Software Projects
+                </h2>
+
+                <div class="section-scroll">
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/dbms.png') }}">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    Database Management System (Python)
+                                </h5>
+
+                                <p>
+                                    Developed a Python-based Database Management System supporting custom database
+                                    creation, record insertion, updating, deletion, and retrieval through a command-line
+                                    interface.
+                                </p>
+
+                                <a href="https://github.com/Syeda-Maham-fatima05/Database_Management_System" target="_blank" class="btn btn-custom">
+                                    GitHub
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/car.png') }}">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    Car Rental System (OOP):
+                                </h5>
+
+                                <p>
+                                    Built an object-oriented Car Rental System in Python with user/admin management,
+                                    vehicle booking, rental processing, and data persistence features.
+                                </p>
+
+                                <a href="https://github.com/Syeda-Maham-fatima05/Car_Rental_System" target="_blank" class="btn btn-custom">
+                                    GitHub
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/compression.png') }}">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    BitSquash – File Compression Tool (DSA)
+                                </h5>
+
+                                <p>
+                                    Designed and implemented a file compression tool using Data Structures and
+                                    Algorithms, reducing file size through efficient encoding and decoding techniques.
+                                </p>
+
+                                <a href="https://github.com/Syeda-Maham-fatima05/Bit-Squash-Compression-Tool"
+                                    target="_blank" class="btn btn-custom">
+                                    GitHub
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-auto">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='projects/dbms.png') }}"
+                                style="filter: hue-rotate(90deg);">
+                            <div class="card-body">
+                                <h5>Catering Management System(DBMS)</h5>
+                                <p>Developed a catering management system to handle event bookings, menu selection,
+                                    order management, and billing efficiently using SQL(Oracle)</p>
+                                <a href="https://github.com/Syeda-Maham-fatima05/Catering_Management_System" target="_blank" class="btn btn-custom">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='projects/2048.png') }}">
+                            <div class="card-body">
+                                <h5>2048 Online Game</h5>
+                                <p>Designed and developed a Python-based 2048 puzzle game featuring interactive
+                                    gameplay, score tracking, and grid-based logic.</p>
+                                <a href="https://github.com/Syeda-Maham-fatima05/2048_Online_Game" target="_blank"
+                                    class="btn btn-custom">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='projects/sns.png') }}"
+                                style="filter: hue-rotate(200deg);">
+                            <div class="card-body">
+                                <h5>Digital Guitar Sound Synthesis System</h5>
+                                <p>Built a digital guitar sound synthesis system that generates realistic guitar tones
+                                    using signal processing and sound synthesis techniques.</p>
+                                <a href="https://github.com/Syeda-Maham-fatima05/Digital_Guitar_Sound_Synthesis_System" target="_blank" class="btn btn-custom">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- HARDWARE -->
+
+            <div id="hardware" class="section-box hardware-section">
+
+                <h2>
+                    ⚡ Hardware Projects
+                </h2>
+
+                <div class="section-scroll">
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/acdc.png') }}">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    AC To DC Conversion
+                                </h5>
+                                <p>Designed and implemented an AC-to-DC power conversion circuit using rectification and
+                                    filtering techniques to provide stable DC output.</p>
+
+                                <a href="{{ url_for('static', filename='pdfs/AC TO DC (1).pdf') }}" target="_blank"
+                                    class="btn btn-custom">
+                                    View PDF
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/fire.png') }}">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    Heat Sensor Circuit
+                                </h5>
+                                <p>Developed a temperature monitoring system using heat sensors for real-time
+                                    temperature detection and measurement.</p>
+
+                                <a href="{{ url_for('static', filename='pdfs/Heat Sensor Circuit Report (1).pdf') }}"
+                                    target="_blank" class="btn btn-custom">
+                                    View PDF
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/wireless.png') }}">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    Wireless Energy Transmission
+                                </h5>
+                                <p>Built a wireless power transmission system based on electromagnetic induction to
+                                    transfer electrical energy without physical connections.</p>
+
+                                <a href="{{ url_for('static', filename='pdfs/CIRCUIT THEORY (1).pdf') }}"
+                                    target="_blank" class="btn btn-custom">
+                                    View PDF
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/sequence.png') }}">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    Sequence Detector
+                                </h5>
+                                <p>Designed and implemented a sequence detector using finite state machine (FSM)
+                                    concepts to identify specific input bit patterns using hardware components.</p>
+
+                                <a href="{{ url_for('static', filename='pdfs/SEQUENCE DETECTOR (1).pdf') }}"
+                                    target="_blank" class="btn btn-custom">
+                                    View PDF
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-auto">
+
+                        <div class="card">
+
+                            <img src="{{ url_for('static', filename='projects/processor.jpg') }}"
+                                style="filter: hue-rotate(90deg);">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    Processor Design
+                                </h5>
+                                <p>Designed a basic processor architecture including instruction execution, control unit
+                                    operations, and data path components using digital logic principles.</p>
+
+                                <a href="{{ url_for('static', filename='pdfs/COD.pdf') }}" target="_blank"
+                                    class="btn btn-custom">
+                                    View PDF
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- GRAPHIC DESIGN -->
+
+            <div id="graphics" class="section-box design-section">
+
+                <h2>
+                    🎨 Graphic Designing
+                </h2>
+
+                <div class="section-scroll">
+
+                    <!-- PICTURES -->
+
+                    <div class="col-auto">
+
+                        <a href="{{ url_for('pictures') }}" class="text-decoration-none">
+                            <div class="graphic-card">
+                                <h3>Pictures</h3>
+                                <div class="graphic-img-box">
+                                    <img src="{{ url_for('static', filename='projects/picture.png') }}">
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <!-- VIDEOS -->
+
+                    <div class="col-auto">
+
+                        <a href="{{ url_for('videos') }}" class="text-decoration-none">
+                            <div class="graphic-card">
+                                <h3>Videos</h3>
+                                <div class="graphic-img-box">
+                                    <img src="{{ url_for('static', filename='projects/video.png') }}">
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
